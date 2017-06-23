@@ -1,0 +1,34 @@
+<html>
+	<header>
+		<title>test</title>
+	</header>
+	<body>
+		<script>
+			function openDownload(){
+				var intervalID, childWindow;
+				disableButtonDownload();
+				childWindow = window.open("http://www.google.com", 'dlstat','menubar=no, width=550,height=500,titlebar=no,alwaysRaised=1, left=0,top=0,screenX=0,screenY=0');
+				childWindow.focus();
+				var intervalID = window.setInterval(function(){
+					closeParentWindow(childWindow, intervalID);
+				}, 500);
+			}
+
+			function closeParentWindow(childWindow, intervalID){
+				if (childWindow && childWindow.closed) {
+					window.clearInterval(intervalID);
+					enableButtonDownload();
+				}
+			}
+
+			function disableButtonDownload(){
+				document.getElementById("downloadModalOpenBtn").disabled = true;
+			}
+
+			function enableButtonDownload(){
+				document.getElementById("downloadModalOpenBtn").disabled = false;
+			}
+		</script>
+		<input type='button' value='Download' id="downloadModalOpenBtn" onclick="openDownload()"/>
+	</body>
+</html>
